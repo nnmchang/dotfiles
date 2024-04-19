@@ -1,0 +1,11 @@
+#!/bin/bash
+
+{{ if eq .chezmoi.os "linux" }}
+  if ! lazygit="$(command -v lazygit)"; then
+      mkdir -p ~/.local/bin
+      curl -o lazygit.tar.gz -L "https://github.com/jesseduffield/lazygit/releases/download/v{{ .tools.lazygit }}/lazygit_{{ .tools.lazygit }}_Linux_arm64.tar.gz"
+      tar -zxf lazygit.tar.gz -C ~/.local/bin/ lazygit
+      # install lazygit ~/.local/bin/
+      rm lazygit.tar.gz #lazygit
+  fi
+{{ end -}}

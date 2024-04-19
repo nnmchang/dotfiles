@@ -1,0 +1,5 @@
+#!/bin/bash
+
+{{ if eq .chezmoi.osRelease.idLike "debian" }}
+  curl -sS https://starship.rs/install.sh | sh -s -- -y
+{{ end -}}

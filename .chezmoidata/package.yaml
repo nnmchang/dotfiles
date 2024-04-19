@@ -1,0 +1,26 @@
+packages:
+  debian:
+    apt:
+      - zsh
+      - ripgrep
+      - fd-find
+      - fzf
+      - git
+      - pkg-config
+  windows:
+    scoop:
+      - 7zip
+      - fd
+      - fzf
+      - ripgrep
+      - zig
+      - make
+tools:
+  lazygit: "0.41.0"
+  nvim: "0.9.5"
+mise:
+  - tool: python
+    version: "3.12.3"
+    use: "global"
+  - tool: python
+    version: "3.13-dev"

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+{{ if eq .chezmoi.os  "linux" -}}
+    if ! nvim="$(command -v nvim)"; then
+      curl -o nvim-linux64.tar.gz -L "https://github.com/neovim/neovim/releases/download/{{ .tools.nvim }}/nvim-linux64.tar.gz"
+      mkdir -p ~/.local/opt/nvim
+      tar -zxf nvim-linux64.tar.gz -C ~/.local/opt/nvim --strip-components 1
+      rm nvim-linux64.tar.gz
+      ln -sf ~/.local/opt/nvim/bin/nvim ~/.local/bin/nvim
+    fi
+{{ end }}

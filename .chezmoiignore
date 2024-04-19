@@ -1,0 +1,18 @@
+{{ if ne .chezmoi.os "windows" }}
+**/*.ps1
+**/*.cmd
+**/*.bat
+AppData
+{{ end }}
+{{ if and (ne .chezmoi.os "linux") (ne .chezmoi.os "darwin") }}
+**/*.sh
+{{ end }}
+
+{{ if or (eq .chezmoi.os "windows") (ne .shell "zsh")}}
+.zprofile
+.zshrc
+{{ end }}
+{{ if or (eq .chezmoi.os "windows") (ne .shell "bash")}}
+.bash_profile
+.bashrc
+{{ end }}

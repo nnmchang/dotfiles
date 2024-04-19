@@ -1,0 +1,20 @@
+{
+    "name": "chezmoi-dotfiles",
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+    "workspaceFolder": "/home/vscode/.local/share/chezmoi",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/vscode/.local/share/chezmoi,type=bind,consistency=cached",
+    "features": {
+        // https://containers.dev/features
+        "ghcr.io/rio/features/chezmoi:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "configureZshAsDefaultShell": true,
+            "installOhMyZsh": false,
+            "installOhMyZshConfig": false,
+            "upgradePackages": false,
+            "username": "none"
+        }
+    },
+    "postCreateCommand": "sudo chown -R vscode:vscode /home/vscode"
+}

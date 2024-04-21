@@ -21,7 +21,7 @@ jobs:
     - name: Install Scoop
       uses: MinoruSekine/setup-scoop@v4
     - name: Install Chezmoi
-      run: 'scoop install twpayne.chezmoi'
+      run: 'scoop install chezmoi'
       if: matrix.os == 'windows-latest'
     - name: Test Chezmoi Windows
       run: 'chezmoi init --apply -S .'

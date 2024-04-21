@@ -12,7 +12,7 @@ jobs:
       # Replace this with a real test runner invocation
       - run:
           name: Install Chezmoi
-          command: 'sh -c "$(curl -fsLS get.chezmoi.io)"'
+          command: 'snap install chezmoi'
       - run:
           name: Run Chezmoi
           command: 'chezmoi init --apply'

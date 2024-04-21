@@ -11,8 +11,11 @@ jobs:
           path: ~/.local/share/chezmoi
       # Replace this with a real test runner invocation
       - run:
+          name: Install Snap
+          command: 'sudp apt update && sudo apt install snapd'
+      - run:
           name: Install Chezmoi
-          command: 'sudo apt upgrade && sudo apt install chezmoi'
+          command: 'snap install chezmoi --classic'
       - run:
           name: Run Chezmoi
           command: 'chezmoi init --apply'

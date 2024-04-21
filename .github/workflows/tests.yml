@@ -13,13 +13,11 @@ jobs:
           # - macos-latest
         
     steps:
-    - name: echo home
-      run: echo $HOME
       
     - name: Set up Git repository
       uses: actions/checkout@v4
       with:
-        path: /home/runner/.local/share/chezmoi
+        path: ../.local/share/chezmoi
 
     - name: Test Chezmoi
       run: 'sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply'

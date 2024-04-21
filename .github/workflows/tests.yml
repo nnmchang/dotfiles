@@ -14,10 +14,8 @@ jobs:
     steps:
     - name: Set up Git repository
       uses: actions/checkout@v4
-    - name: Install Homebrew
-      run: '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
-    - run: 'echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/runner/.bashrc
-    - run: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+    - name: Set up homebrew
+      uses: 'Homebrew/actions/setup-homebrew@master'
     - name: Install Chezmoi
       run: 'brew install chezmoi'
     - name: Test Chezmoi

@@ -4,27 +4,32 @@ on:
     branches: main
   pull_request:
 jobs:
-  tests:
+  unix:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os:
           - ubuntu-latest
-          - windows-latest
-          # - macos-latest
+          - macos-latest
     steps:
     - name: Set up Git repository
       uses: actions/checkout@v4
     - name: Test Chezmoi
       run: 'sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply -S .'
-      if: matrix.os == 'ubuntu-latest'
+  windows:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - windows-latest
+    steps:
+    - name: Set up Git repository
+      uses: actions/checkout@v4
     - name: PowerShell Policy
       run: 'Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force'
     - name: Install Scoop
       uses: MinoruSekine/setup-scoop@v4
     - name: Install Chezmoi
       run: 'scoop install chezmoi'
-      if: matrix.os == 'windows-latest'
     - name: Test Chezmoi Windows
       run: 'chezmoi init --apply -S .'
-      if: matrix.os == 'windows-latest'

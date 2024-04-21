@@ -1,12 +1,16 @@
 packages:
-  debian:
-    apt:
-      - zsh
+  linux:
+    brew:
       - ripgrep
-      - fd-find
+      - fd
       - fzf
       - git
       - pkg-config
+      - lazygit
+      - neovim
+      - mise
+      - starship
+      - sheldon
   windows:
     scoop:
       - 7zip

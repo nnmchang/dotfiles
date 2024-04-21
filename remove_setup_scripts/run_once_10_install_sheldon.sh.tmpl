@@ -1,9 +1,0 @@
-#!/bin/bash
-
-{{ if or (eq .chezmoi.os "linux") (eq .chezmoi.os "darwin") }}
-  if ! sheldon="$(command -v sheldon)"; then
-      . "$HOME/.cargo/env"
-      cargo install sheldon
-      sudo chown -R $(whoami) /usr/local/share/zsh
-  fi
-{{ end -}}

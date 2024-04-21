@@ -2,8 +2,6 @@
 set -euo pipefail
 
 {{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.idLike "debian") }}
-  sudo apt update
-  {{ range .packages.debian.apt -}}
-    sudo apt install -y {{ . | quote }}
-  {{ end -}}
+  brew update
+  brew install {{ .packages.linux.brew | quoteList | join " " }}
 {{ end -}}

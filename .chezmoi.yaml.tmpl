@@ -7,9 +7,12 @@ cd:
 
 hooks:
   apply:
-    comamnd: "pwsh"
-    pre: ["-c", "& {Invoke-RunBeforeChezmoiApply}"]
-    post: ["-c", "& {Invoke-RunAfterChezmoiApply}"]
+    pre:
+      comamnd: "pwsh"
+      args: ["-c", "& {Invoke-RunBeforeChezmoiApply}"]
+    post:
+      comamnd: "pwsh"
+      args: ["-c", "& {Invoke-RunAfterChezmoiApply}"]
 
 {{ end }}
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-{{ if eq .chezmoi.osRelease.idLike "debian" }}
+{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.idLike "debian") }}
   sudo apt update
   {{ range .packages.debian.apt -}}
     sudo apt install -y {{ . | quote }}

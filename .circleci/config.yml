@@ -5,14 +5,14 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: ubuntu-2204:2024.01.2
+      - image: cimg/base:2024.02
     steps:
       - checkout:
           path: ./.local/share/chezmoi
       # Replace this with a real test runner invocation
       - run:
           name: Run Chezmoi
-          command: chezmoi init --apply
+          command: 'sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply'
 workflows:
   example:
     jobs:

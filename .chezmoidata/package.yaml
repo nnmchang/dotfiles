@@ -22,5 +22,3 @@ mise:
   - tool: python
     version: "3.12.3"
     use: "global"
-  - tool: python
-    version: "3.13-dev"

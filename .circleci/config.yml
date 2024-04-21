@@ -3,12 +3,25 @@
 # See: https://circleci.com/docs/configuration-reference
 version: 2.1
 jobs:
-  test:
+  test-bash:
     docker:
       - image: cimg/base:2024.02
     steps:
       - checkout:
           path: ~/.local/share/chezmoi
+      # Replace this with a real test runner invocation
+      - run:
+          name: run chezmoi
+          command: 'sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply'
+  test-zsh:
+    docker:
+      - image: cimg/base:2024.02
+    steps:
+      - checkout:
+          path: ~/.local/share/chezmoi
+      - run:
+          name: Install ZSH
+          command: 'sudo apt install zsh && sudo chsh -s $(which zsh) $(whoami)'
       # Replace this with a real test runner invocation
       - run:
           name: run chezmoi

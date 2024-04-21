@@ -12,7 +12,7 @@ jobs:
       # Replace this with a real test runner invocation
       - run:
           name: Install Chezmoi
-          command: 'snap install chezmoi'
+          command: 'sudo apt upgrade && sudo apt install chezmoi'
       - run:
           name: Run Chezmoi
           command: 'chezmoi init --apply'

@@ -15,9 +15,8 @@ jobs:
     - name: Set up Git repository
       uses: actions/checkout@v4
     - name: Install Homebrew
-      run: |
-        '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
-        'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+      run: '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+    - run: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
     - name: Insta;; Chezmoi
       run: 'brew install chezmoi'
     - name: Test Chezmoi

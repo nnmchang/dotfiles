@@ -1,5 +1,5 @@
 #!/bin/bash
 
-{{ if eq .chezmoi.osRelease.idLike "debian" }}
+{{ if or  (eq .chezmoi.os "linux") (eq .chezmoi.os "darwin") }}
   curl -sS https://starship.rs/install.sh | sh -s -- -y
 {{ end -}}

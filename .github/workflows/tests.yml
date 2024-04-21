@@ -16,7 +16,7 @@ jobs:
     - name: Set up Git repository
       uses: actions/checkout@v4
       with:
-        path: ~/.local/share/chezmoi
+        path: ${{ runner.home }}/.local/share/chezmoi
 
     - name: Test Chezmoi
       run: 'sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply'

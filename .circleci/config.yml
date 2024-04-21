@@ -11,8 +11,11 @@ jobs:
           path: ~/.local/share/chezmoi
       # Replace this with a real test runner invocation
       - run:
+          name: Install Chezmoi
+          command: 'sh -c "$(curl -fsLS get.chezmoi.io)'
+      - run:
           name: Run Chezmoi
-          command: 'sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply'
+          command: chezmoi init --apply'
 workflows:
   example:
     jobs:

@@ -15,7 +15,7 @@ jobs:
           command: 'sh -c "$(curl -fsLS get.chezmoi.io)"'
       - run:
           name: Run Chezmoi
-          command: chezmoi init --apply'
+          command: 'chezmoi init --apply'
 workflows:
   example:
     jobs:

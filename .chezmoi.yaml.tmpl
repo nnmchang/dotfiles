@@ -1,9 +1,18 @@
 edit:
   command: "nvim"
+
 {{ if eq .chezmoi.os "windows" }}
 cd:
-  command: "pwsh"
+  command = "pwsh.exe"
+
+hooks:
+  apply:
+    comamnd = "pwsh"
+    pre: ["-c", "& {Invoke-RunBeforeChezmoiApply}"]
+    post: ["-c", "& {Invoke-RunAfterChezmoiApply}"]
+
 {{ end }}
+
 data:
   {{ if eq .chezmoi.os "windows" }}
   shell: pwsh

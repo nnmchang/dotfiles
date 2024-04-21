@@ -1,0 +1,19 @@
+# Couldn't automatically generate a config from your source code.
+# This is a generic template to serve as a base for your custom config
+# See: https://circleci.com/docs/configuration-reference
+version: 2.1
+jobs:
+  test:
+    docker:
+      - image: ubuntu-2204:2024.01.2
+    steps:
+      - checkout:
+          path: ./.local/share/chezmoi
+      # Replace this with a real test runner invocation
+      - run:
+          name: Run Chezmoi
+          command: chezmoi init --apply
+workflows:
+  example:
+    jobs:
+      - test

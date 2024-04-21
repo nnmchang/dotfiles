@@ -12,7 +12,7 @@ jobs:
       # Replace this with a real test runner invocation
       - run:
           name: Install Snap
-          command: 'sudp apt update && sudo apt install snapd'
+          command: 'sudo apt update && sudo apt install snapd'
       - run:
           name: Install Chezmoi
           command: 'snap install chezmoi --classic'

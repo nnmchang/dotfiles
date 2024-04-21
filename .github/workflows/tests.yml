@@ -18,11 +18,10 @@ jobs:
     - name: Test Chezmoi
       run: 'sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply -S .'
       if: matrix.os == 'ubuntu-latest'
-    - name: Install winget
-      uses: Cyberboss/install-winget@v1
-      if: matrix.os == 'windows-latest'
+    - name: Install Scoop
+      uses: MinoruSekine/setup-scoop@v4
     - name: Install Chezmoi
-      run: 'winget install twpayne.chezmoi --disable-interactivity --accept-source-agreements'
+      run: 'scoop install twpayne.chezmoi'
       if: matrix.os == 'windows-latest'
     - name: Test Chezmoi Windows
       run: 'chezmoi init --apply -S .'

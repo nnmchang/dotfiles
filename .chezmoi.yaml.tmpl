@@ -3,11 +3,11 @@ edit:
 
 {{ if eq .chezmoi.os "windows" }}
 cd:
-  command = "pwsh.exe"
+  command: "pwsh.exe"
 
 hooks:
   apply:
-    comamnd = "pwsh"
+    comamnd: "pwsh"
     pre: ["-c", "& {Invoke-RunBeforeChezmoiApply}"]
     post: ["-c", "& {Invoke-RunAfterChezmoiApply}"]
 
@@ -17,12 +17,12 @@ data:
   {{ if eq .chezmoi.os "windows" }}
   shell: pwsh
   {{ else }}
-  {{ $detect_shell := env "SHELL" | base }}
-  {{ if ne $detect_shell "" }}
+    {{ $detect_shell := env "SHELL" | base }}
+    {{ if ne $detect_shell "" }}
   shell: {{ $detect_shell | quote }}
-  {{ else }}
+    {{ else }}
     {{ $shells := list "bash" "zsh" }}
     {{ $shell := promptChoiceOnce . "zsh" "What type of shell are you on" $shells "zsh"}}
   shell: {{ $shell | quote }}
-  {{ end }}
+    {{ end }}
   {{ end }}

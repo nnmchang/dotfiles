@@ -18,6 +18,8 @@ jobs:
     - name: Test Chezmoi
       run: 'sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply -S .'
       if: matrix.os == 'ubuntu-latest'
+    - name: PowerShell Policy
+      run: 'Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force'
     - name: Install Scoop
       uses: MinoruSekine/setup-scoop@v4
     - name: Install Chezmoi

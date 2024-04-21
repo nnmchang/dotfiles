@@ -4,8 +4,10 @@ edit:
 cd:
   command: "pwsh"
 {{ end }}
-{{ if ne .chezmoi.os "windows" }}
 data:
+  {{ if eq .chezmoi.os "windows" }}
+  shell: pwsh
+  {{ else }}
   {{ $detect_shell := env "SHELL" | base }}
   {{ if ne $detect_shell "" }}
   shell: {{ $detect_shell | quote }}
@@ -14,4 +16,4 @@ data:
     {{ $shell := promptChoiceOnce . "zsh" "What type of shell are you on" $shells "zsh"}}
   shell: {{ $shell | quote }}
   {{ end }}
-{{ end }}
+  {{ end }}

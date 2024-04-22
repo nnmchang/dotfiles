@@ -4,18 +4,7 @@ edit:
 {{ if eq .chezmoi.os "windows" }}
 cd:
   command: "pwsh.exe"
-
-hooks:
-  apply:
-    pre:
-      comamnd: "pwsh"
-      args: ["-c", "& {Invoke-RunBeforeChezmoiApply}"]
-    post:
-      comamnd: "pwsh"
-      args: ["-c", "& {Invoke-RunAfterChezmoiApply}"]
-
 {{ end }}
-
 data:
   {{ if eq .chezmoi.os "windows" }}
   shell: pwsh

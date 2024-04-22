@@ -11,6 +11,8 @@ packages:
       - mise
       - starship
       - sheldon
+      - vivid
+      - lsd
   windows:
     scoop:
       - 7zip

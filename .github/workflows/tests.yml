@@ -19,7 +19,7 @@ jobs:
     - name: Install Chezmoi
       run: 'brew install chezmoi'
     - name: Test Chezmoi
-      run: 'chezmoi init --apply -S .'
+      run: 'chezmoi init --apply --source $GITHUB_WORKSPACE'
   windows:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -36,4 +36,4 @@ jobs:
     - name: Install Chezmoi
       run: 'scoop install chezmoi'
     - name: Test Chezmoi Windows
-      run: 'chezmoi init --apply -S .'
+      run: 'chezmoi init --apply --source $Env:GITHUB_WORKSPACE'

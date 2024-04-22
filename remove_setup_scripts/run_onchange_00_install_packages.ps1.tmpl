@@ -1,1 +1,1 @@
-scoop install {{ .packages.windows.scoop | quoteList | join " " }}
+scoop install {{ .packages.windows.scoop | quoteList | join " " }} {{ $action := env "GITHUB_ACTIONS"}}{{ if ne $action "" }}--skip{{ end }}

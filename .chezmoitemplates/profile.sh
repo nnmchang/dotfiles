@@ -18,6 +18,7 @@ if [ -e "$HOME/.cargo/env" ]; then
     . "$HOME/.cargo/env"
 fi
 
+alias ls='lsd'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -27,3 +28,5 @@ snap_bin_path="/snap/bin"
 if [ -n "${PATH##*${snap_bin_path}}" -a -n "${PATH##*${snap_bin_path}:*}" ]; then
     export PATH=$PATH:${snap_bin_path}
 fi
+
+export LS_COLORS="$(vivid generate molokai)"

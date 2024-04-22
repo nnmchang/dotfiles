@@ -35,6 +35,5 @@ jobs:
       uses: MinoruSekine/setup-scoop@v4
     - name: Install Chezmoi
       run: 'scoop install chezmoi'
-      shell: powershell
     - name: Test Chezmoi Windows
       run: 'chezmoi init --apply --source $Env:GITHUB_WORKSPACE'

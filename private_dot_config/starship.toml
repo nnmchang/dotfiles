@@ -8,7 +8,6 @@ $username\
 $directory\
 [](fg:color_yellow bg:color_aqua)\
 $git_branch\
-${custom.git_username}\
 [](fg:color_aqua bg:color_blue)\
 $c\
 $rust\
@@ -28,13 +27,6 @@ $time\
 $line_break$character"""
 
 palette = 'gruvbox_dark'
-
-[custom.git_username]
-symbol = " "
-command = "git config user.name"
-when = "git rev-parse --git-dir 2> /dev/null"
-style = "bg:color_aqua"
-format = '[[ $symbol $output ](fg:color_fg0 bg:color_aqua)]($style)'
 
 [palettes.gruvbox_dark]
 color_fg0 = '#fbf1c7'

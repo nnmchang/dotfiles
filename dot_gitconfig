@@ -1,0 +1,25 @@
+[http]
+	sslverify = false
+[user]
+	name = hidaka-kouki
+	email = hidaka-kouki@mgt-net.com
+[core]
+	autocrlf = input
+[credential "https://github.com"]
+  helper = !/usr/bin/gh auth git-credential
+
+[include]
+  path = ~/.config/delta/catppuccin.gitconfig
+[pager]
+  diff = delta
+  log = delta
+  reflog = delta
+  show = delta
+
+[delta]
+  features = catppuccin-mocha
+  navigate = true
+  side-by-side = true
+
+[interactive]
+  diffFilter = delta --color-only

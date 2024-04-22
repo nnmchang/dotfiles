@@ -1,26 +1,24 @@
 packages:
-  linux:
-    brew:
-      - ripgrep
-      - fd
-      - fzf
-      - git
-      - pkg-config
-      - lazygit
-      - neovim
-      - mise
-      - starship
-      - sheldon
-      - vivid
-      - lsd
-  windows:
-    scoop:
-      - 7zip
-      - fd
-      - fzf
-      - ripgrep
-      - zig
-      - make
+  brew:
+    - ripgrep
+    - fd
+    - fzf
+    - git
+    - pkg-config
+    - lazygit
+    - neovim
+    - mise
+    - starship
+    - sheldon
+    - vivid
+    - lsd
+  scoop:
+    - 7zip
+    - fd
+    - fzf
+    - ripgrep
+    - zig
+    - make
 tools:
   lazygit: "0.41.0"
   nvim: "0.9.5"

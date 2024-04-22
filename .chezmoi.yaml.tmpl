@@ -5,16 +5,35 @@ edit:
 cd:
   command: "pwsh.exe"
 {{ end }}
-data:
-  {{ if eq .chezmoi.os "windows" }}
-  shell: pwsh
-  {{ else }}
+
+{{/* os detect */}}
+{{ $os := "" }}
+{{ if eq .chezmoi.os "windows" }}
+  {{ $os = "windows "}}
+{{ end }}
+{{ if eq .chezmoi.os "linux" }}
+  {{ $os = .chezmoi.osRelease.id }}
+{{ end }}
+{{ if eq .chezmoi.os "darwin" }}
+  {{ $os = "darwin" }}
+{{ end }}
+
+{{/* shell detect */}}
+{{ $shell := "bash" }}
+{{ if eq .chezmoi.os "windows"}}
+  {{ $shell = "shell" }}
+{{ else }}
+  {{ if or (eq .chezmoi.os "linux") (eq .chezmoi.os "darwin") }}
     {{ $detect_shell := env "SHELL" | base }}
     {{ if ne $detect_shell "" }}
-  shell: {{ $detect_shell | quote }}
+      {{ $shell = $detect_shell }}
     {{ else }}
-    {{ $shells := list "bash" "zsh" }}
-    {{ $shell := promptChoiceOnce . "zsh" "What type of shell are you on" $shells "zsh"}}
-  shell: {{ $shell | quote }}
+      {{ $shells := list "bash" "zsh" }}
+      {{ $shell = promptChoiceOnce . "zsh" "What type of shell are you on" $shells "bash"}}
     {{ end }}
   {{ end }}
+{{ end }}
+
+data:
+  shell: {{ $shell }}
+  os: {{ $os }}

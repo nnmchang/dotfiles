@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.idLike "debian") }}
+{{ if or (eq .chezmoi.os "linux") (eq .chezmoi.os "darwin") }}
   brew update
-  brew install {{ .packages.linux.brew | quoteList | join " " }}
+  brew install {{ .packages.brew | quoteList | join " " }}
 {{ end -}}

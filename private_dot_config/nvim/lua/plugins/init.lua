@@ -69,6 +69,9 @@ return {
           git_files = {
             git_command = {'git', 'ls-files', '--exclude-standard', '--cached', '--others',},
           },
+          find_files = {
+            hidden = true,
+          },
         },
       })
     end,

@@ -3,12 +3,14 @@
 **/*.cmd
 **/*.bat
 AppData
+Documents
 {{ end }}
 {{ if and (ne .chezmoi.os "linux") (ne .chezmoi.os "darwin") }}
 **/*.sh
 {{ end }}
 
 {{ if or (eq .chezmoi.os "windows") (ne .shell "zsh")}}
+.zsh
 .zprofile
 .zshrc
 {{ end }}

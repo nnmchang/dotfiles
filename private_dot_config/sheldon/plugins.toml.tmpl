@@ -25,6 +25,12 @@ apply = ['source']
 [templates]
 defer = {{ `"{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"` }}
 
+[plugins.ohmyzsh-lib]
+github = "ohmyzsh/ohmyzsh"
+dir = "lib"
+use = ["{completion,key-bindings,directories}.zsh"]
+apply = ['defer']
+
 [plugins.zsh-syntax-highlighting]
 github = 'zsh-users/zsh-syntax-highlighting'
 apply = ['defer']
@@ -34,7 +40,7 @@ github = 'zsh-users/zsh-completions'
 apply = ['defer']
 
 [plugins.zsh-completions-fpath]
-inline = 'fpath=("~/.zsh/completion" $fpath )'
+inline = 'fpath=(~/.zsh/completion $fpath )'
 
 {{ end }}
 
@@ -42,4 +48,4 @@ inline = 'fpath=("~/.zsh/completion" $fpath )'
 inline = 'eval "$(starship init {{ .shell }})"'
 
 [plugins.mise]
-inline = 'eval "$(~/.local/bin/mise activate {{ .shell }})"'
+inline = 'eval "$(mise activate {{ .shell }})"'

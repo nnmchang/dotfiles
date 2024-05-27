@@ -14,6 +14,7 @@ packages:
     - lsd
     - rust-analyzer
     - yazi
+    - zoxide
   scoop:
     - 7zip
     - fd
@@ -22,6 +23,7 @@ packages:
     - zig
     - make
     - yazi
+    - zoxide
 mise:
   - tool: python
     version: "3.12.3"

@@ -13,6 +13,7 @@ packages:
     - vivid
     - lsd
     - rust-analyzer
+    - yazi
   scoop:
     - 7zip
     - fd
@@ -20,6 +21,7 @@ packages:
     - ripgrep
     - zig
     - make
+    - yazi
 mise:
   - tool: python
     version: "3.12.3"

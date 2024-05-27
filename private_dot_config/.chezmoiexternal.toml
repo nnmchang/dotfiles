@@ -1,9 +1,9 @@
 ["./wezterm"]
 type = "git-repo"
-url = "git@github.com:nnmchang/wezterm-config.git"
+url = "https://github.com/nnmchang/wezterm-config.git"
 refreshPeriod = "168h"
 
 ["./nvim"]
 type = "git-repo"
-url = "git@github.com:nnmchang/nvim.git"
+url = "https://github.com/nnmchang/nvim.git"
 refreshPeriod = "168h"

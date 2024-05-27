@@ -3,6 +3,11 @@ if [ -e "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 {{ end }}
+{{ if eq .chezmoi.os "darwin" }}
+if [ -e "/opt/homebrew/bin/brew" ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+{{ end }}
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then

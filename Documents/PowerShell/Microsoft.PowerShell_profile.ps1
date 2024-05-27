@@ -1,3 +1,6 @@
+Invoke-Expression (&starship init powershell)
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
 function Invoke-As-Admin() {
     if ($args.count -eq 0) {
         gsudo
@@ -8,4 +11,7 @@ function Invoke-As-Admin() {
 }
 
 Set-Alias -Name: "sudo" -Value: "Invoke-As-Admin"
-Invoke-Expression (&starship init powershell)
+Set-Alias -Name: "ls" -Value: "lsd"
+function ll {
+    ls -l $args
+}

@@ -15,6 +15,7 @@ packages:
     - rust-analyzer
     - yazi
     - zoxide
+    - git-delta
   scoop:
     - 7zip
     - fd

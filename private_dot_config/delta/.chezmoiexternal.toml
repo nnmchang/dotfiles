@@ -1,4 +1,0 @@
-["catppuccin.gitconfig"]
-    type = "file"
-    url = "https://github.com/catppuccin/delta/raw/main/catppuccin.gitconfig"
-    refreshPeriod = "168h"

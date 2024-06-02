@@ -30,3 +30,4 @@ if [ -n "${PATH##*${snap_bin_path}}" -a -n "${PATH##*${snap_bin_path}:*}" ]; the
 fi
 
 export LS_COLORS="$(vivid generate catppuccin-mocha)"
+export XDG_CONFIG_HOME="$HOME/.config"

@@ -1,7 +1,14 @@
 [opener]
 edit = [
-	{ run = 'nvim "$@"', block = true, desc = "nvim", for = "unix" },
-	{ run = 'nvim "%*"', block = true, desc = "nvim", for = "windows" },
+	{ run = 'nvim "$0"', block = true, desc = "nvim", for = "unix" },
+	{ run = 'nvim "%0"', block = true, desc = "nvim", for = "windows" },
+]
+edit_dir = [
+	{ run = 'cd "$0" && nvim .', block = true, desc = "open directory with nvim", for = "unix" },
+	{ run = 'cd "%0" && nvim .', block = true, desc = "open directory with nvim", for = "windows" },
+]
+edit_current_dir = [
+	{ run = 'nvim .', block = true, desc = "open current directory with nvim" },
 ]
 open = [
 	{ run = 'xdg-open "$@"', desc = "Open", for = "linux" },
@@ -11,7 +18,7 @@ open = [
 reveal = [
 	{ run = 'xdg-open "$(dirname "$0")"', desc = "Reveal", for = "linux" },
 	{ run = 'open -R "$1"', desc = "Reveal", for = "macos" },
-	{ run = 'explorer /select, "%1"', orphan = true, desc = "Reveal", for = "windows" },
+	{ run = 'explorer /select, "%1"', orphan = true, desc = "explorer", for = "windows" },
 	{ run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
 ]
 extract = [
@@ -22,4 +29,55 @@ play = [
 	{ run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
 	{ run = 'mpv --force-window "%1"', orphan = true, for = "windows" },
 	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
+]
+
+[open]
+rules = [
+	{ name = "*/", use = [
+		"edit_dir",
+		"edit_current_dir",
+		"open",
+		"reveal",
+	] },
+
+	{ mime = "text/*", use = [
+		"edit",
+		"edit_current_dir",
+		"reveal",
+	] },
+	{ mime = "image/*", use = [
+		"open",
+		"reveal",
+	] },
+	{ mime = "{audio,video}/*", use = [
+		"play",
+		"reveal",
+	] },
+	{ mime = "inode/x-empty", use = [
+		"edit",
+		"reveal",
+	] },
+
+	{ mime = "application/{,g}zip", use = [
+		"extract",
+		"reveal",
+	] },
+	{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", use = [
+		"extract",
+		"reveal",
+	] },
+
+	{ mime = "application/json", use = [
+		"edit",
+		"reveal",
+	] },
+	{ mime = "*/javascript", use = [
+		"edit",
+		"reveal",
+	] },
+
+	{ name = "*", use = [
+		"open",
+		"reveal",
+	] },
 ]

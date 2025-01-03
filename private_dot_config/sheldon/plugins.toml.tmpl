@@ -9,18 +9,17 @@
 # - `sheldon remove` to remove a plugin from the config file
 #
 # See the documentation for more https://github.com/rossmacarthur/sheldon#readme
-
-[plugins]
-
 # For example:
 #
 # [plugins.base16]
 # github = "chriskempson/base16-shell"
 
 {{ if eq .shell "zsh" }}
+
+shell = "zsh"
+
 [plugins.zsh-defer]
 github = 'romkatv/zsh-defer'
-apply = ['source']
 
 [templates]
 defer = {{ `"{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"` }}

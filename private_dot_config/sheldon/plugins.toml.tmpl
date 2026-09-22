@@ -14,9 +14,9 @@
 # [plugins.base16]
 # github = "chriskempson/base16-shell"
 
-{{ if eq .shell "zsh" }}
+shell = "{{ .shell }}"
 
-shell = "zsh"
+{{ if eq .shell "zsh" }}
 
 [plugins.zsh-defer]
 github = 'romkatv/zsh-defer'
@@ -30,16 +30,19 @@ dir = "lib"
 use = ["{completion,key-bindings,directories}.zsh"]
 apply = ['defer']
 
-[plugins.zsh-syntax-highlighting]
-github = 'zsh-users/zsh-syntax-highlighting'
-apply = ['defer']
-
 [plugins.zsh-completions]
 github = 'zsh-users/zsh-completions'
 apply = ['defer']
 
 [plugins.zsh-completions-fpath]
 inline = 'fpath=(~/.zsh/completion $fpath )'
+
+[plugins.compinit]
+inline = "zsh-defer -c 'autoload -Uz compinit && compinit'"
+
+[plugins.zsh-syntax-highlighting]
+github = 'zsh-users/zsh-syntax-highlighting'
+apply = ['defer']
 
 {{ end }}
 

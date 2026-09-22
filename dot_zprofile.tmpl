@@ -1,1 +1,12 @@
 {{ template "profile.sh" .}}
+{{ if eq .chezmoi.os "darwin" }}
+# JetBrains Toolbox
+if [ -d "$HOME/Library/Application Support/JetBrains/Toolbox/scripts" ]; then
+    export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+fi
+
+# Python 3.13 (python.org installer)
+if [ -d "/Library/Frameworks/Python.framework/Versions/3.13/bin" ]; then
+    export PATH="/Library/Frameworks/Python.framework/Versions/3.13/bin:$PATH"
+fi
+{{ end }}

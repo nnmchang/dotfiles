@@ -9,7 +9,7 @@ cd:
 {{/* os detect */}}
 {{ $os := "" }}
 {{ if eq .chezmoi.os "windows" }}
-  {{ $os = "windows "}}
+  {{ $os = "windows"}}
 {{ end }}
 {{ if eq .chezmoi.os "linux" }}
   {{ $os = .chezmoi.osRelease.id }}
@@ -29,7 +29,7 @@ cd:
       {{ $shell = $detect_shell }}
     {{ else }}
       {{ $shells := list "bash" "zsh" }}
-      {{ $shell = promptChoiceOnce . "zsh" "What type of shell are you on" $shells "bash"}}
+      {{ $shell = promptChoiceOnce . "shell" "What type of shell are you on" $shells "bash"}}
     {{ end }}
   {{ end }}
 {{ end }}

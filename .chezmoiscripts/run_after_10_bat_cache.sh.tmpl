@@ -1,0 +1,9 @@
+#!/bin/bash
+set -euo pipefail
+
+# Build bat theme cache so that themes in ~/.config/bat/themes are available
+if command -v bat >/dev/null 2>&1; then
+    if ! bat --list-themes --color=never 2>/dev/null | grep -qx "Catppuccin Mocha"; then
+        bat cache --build
+    fi
+fi

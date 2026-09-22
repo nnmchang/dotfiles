@@ -1,0 +1,6 @@
+# Build bat theme cache so that themes in ~/.config/bat/themes are available
+if (Get-Command bat -ErrorAction SilentlyContinue) {
+    if (-not (bat --list-themes --color=never 2>$null | Select-String -Pattern '^Catppuccin Mocha$' -Quiet)) {
+        bat cache --build
+    }
+}

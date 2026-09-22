@@ -29,5 +29,7 @@ if [ -n "${PATH##*${snap_bin_path}}" -a -n "${PATH##*${snap_bin_path}:*}" ]; the
     export PATH=$PATH:${snap_bin_path}
 fi
 
-export LS_COLORS="$(vivid generate catppuccin-mocha)"
+if command -v vivid >/dev/null 2>&1; then
+    export LS_COLORS="$(vivid generate catppuccin-mocha)"
+fi
 export XDG_CONFIG_HOME="$HOME/.config"

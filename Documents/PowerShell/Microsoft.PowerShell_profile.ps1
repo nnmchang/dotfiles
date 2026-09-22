@@ -16,7 +16,7 @@ function ll {
     ls -l $args
 }
 
-$env:YAZI_FILE_ONE=$(join-path $(where.exe git) ../../usr/bin/file.exe)
+$env:YAZI_FILE_ONE=$(join-path $(where.exe git | Select-Object -First 1) ../../usr/bin/file.exe)
 function yy {
     $tmp = [System.IO.Path]::GetTempFileName()
     yazi $args --cwd-file="$tmp"

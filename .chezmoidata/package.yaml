@@ -16,6 +16,9 @@ packages:
     - yazi
     - zoxide
     - git-delta
+    - gh
+    - bat
+    - bottom
   scoop:
     - 7zip
     - fd
@@ -25,6 +28,15 @@ packages:
     - make
     - yazi
     - zoxide
+    - gh
+    - neovim
+    - extras/lazygit
+    - starship
+    - lsd
+    - delta
+    - bat
+    - bottom
+    - gsudo
 mise:
   - tool: python
     version: "3.12.3"

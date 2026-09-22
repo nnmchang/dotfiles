@@ -1,2 +1,24 @@
 eval "$(sheldon source)"
 {{ template "alias.sh" . }}
+
+# pnpm
+{{ if eq .chezmoi.os "darwin" -}}
+export PNPM_HOME="$HOME/Library/pnpm"
+{{- else -}}
+export PNPM_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/pnpm"
+{{- end }}
+if [ -d "$PNPM_HOME" ]; then
+  case ":$PATH:" in
+    *":$PNPM_HOME:"*) ;;
+    *) export PATH="$PNPM_HOME:$PATH" ;;
+  esac
+fi
+
+# LM Studio CLI (lms)
+if [ -d "$HOME/.lmstudio/bin" ]; then
+  export PATH="$PATH:$HOME/.lmstudio/bin"
+fi
+
+# Docker Compose
+alias dcu='docker compose up -d'
+alias dcd='docker compose down'

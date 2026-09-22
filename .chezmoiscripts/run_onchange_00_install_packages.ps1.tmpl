@@ -1,1 +1,2 @@
-scoop install {{ .packages.scoop | quoteList | join " " }} {{ $action := env "GITHUB_ACTIONS"}}{{ if ne $action "" }}--skip{{ end }}
+scoop bucket add extras
+scoop install {{ .packages.scoop | quoteList | join " " }} {{ $action := env "GITHUB_ACTIONS"}}{{ if ne $action "" }}--skip-hash-check{{ end }}

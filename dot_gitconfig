@@ -1,12 +1,14 @@
-[http]
-	sslverify = false
 [user]
 	name = NNMchang
 	email = 121856985+nnmchang@users.noreply.github.com
 [core]
 	autocrlf = input
 [credential "https://github.com"]
-  helper = !/usr/bin/gh auth git-credential
+  helper =
+  helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+  helper =
+  helper = !gh auth git-credential
 
 [include]
   path = ~/.config/delta/catppuccin.gitconfig

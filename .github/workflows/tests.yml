@@ -31,7 +31,9 @@ jobs:
     - name: Test Chezmoi
       run: 'chezmoi init --apply --source $GITHUB_WORKSPACE'
     - name: Verify Chezmoi
-      run: 'chezmoi verify --exclude scripts --source $GITHUB_WORKSPACE'
+      run: |
+        chezmoi status --exclude scripts --source $GITHUB_WORKSPACE
+        chezmoi verify --exclude scripts --source $GITHUB_WORKSPACE
   windows:
     runs-on: windows-latest
     steps:
@@ -46,4 +48,6 @@ jobs:
     - name: Test Chezmoi Windows
       run: 'chezmoi init --apply --source $Env:GITHUB_WORKSPACE'
     - name: Verify Chezmoi Windows
-      run: 'chezmoi verify --exclude scripts --source $Env:GITHUB_WORKSPACE'
+      run: |
+        chezmoi status --exclude scripts --source $Env:GITHUB_WORKSPACE
+        chezmoi verify --exclude scripts --source $Env:GITHUB_WORKSPACE

@@ -19,6 +19,12 @@ packages:
     - gh
     - bat
     - bottom
+    - sd
+    - dust
+    - duf
+    - procs
+    - jq
+    - yq
   scoop:
     - 7zip
     - fd
@@ -37,6 +43,18 @@ packages:
     - bat
     - bottom
     - gsudo
+    - sd
+    - dust
+    - duf
+    - procs
+    - less
+    - grep
+    - sed
+    - gawk
+    - uutils-coreutils
+    - uutils-findutils
+    - jq
+    - yq
 mise:
   - tool: python
     version: "3.12.3"

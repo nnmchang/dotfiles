@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Set up Git repository
-      uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
     - name: ShellCheck
       run: shellcheck .chezmoiscripts/*.sh
     - name: PSScriptAnalyzer
@@ -45,7 +45,7 @@ jobs:
       SHELL: /bin/${{ matrix.shell }}
     steps:
     - name: Set up Git repository
-      uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
     - name: Install zsh
       if: matrix.shell == 'zsh' && runner.os == 'Linux'
       run: sudo apt-get update && sudo apt-get install -y zsh
@@ -72,7 +72,7 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: Set up Git repository
-      uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
     - name: PowerShell Policy
       run: 'Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force'
     - name: Install Scoop

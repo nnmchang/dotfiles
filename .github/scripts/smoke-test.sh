@@ -1,4 +1,5 @@
-# shellcheck shell=bash
+# shellcheck shell=bash disable=SC2016
+# (SC2016: eval で遅延評価させるため、シングルクォート内の変数展開は意図したもの)
 # 対話シェルでエイリアス・関数・シェル統合が使えることを確認する (bash / zsh 共通)
 # エイリアスを展開させるため対話シェル内で source する: "$SHELL" -lic 'source .github/scripts/smoke-test.sh'
 

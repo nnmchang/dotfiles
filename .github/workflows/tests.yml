@@ -33,6 +33,7 @@ jobs:
     - name: Verify Chezmoi
       run: |
         chezmoi status --exclude scripts --source $GITHUB_WORKSPACE
+        chezmoi diff --no-pager --exclude scripts --source $GITHUB_WORKSPACE
         chezmoi verify --exclude scripts --source $GITHUB_WORKSPACE
   windows:
     runs-on: windows-latest
@@ -50,4 +51,5 @@ jobs:
     - name: Verify Chezmoi Windows
       run: |
         chezmoi status --exclude scripts --source $Env:GITHUB_WORKSPACE
+        chezmoi diff --no-pager --exclude scripts --source $Env:GITHUB_WORKSPACE
         chezmoi verify --exclude scripts --source $Env:GITHUB_WORKSPACE

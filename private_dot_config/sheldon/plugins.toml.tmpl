@@ -53,10 +53,10 @@ apply = ['defer']
 {{ end }}
 
 [plugins.starship]
-inline = 'eval "$(starship init {{ .shell }})"'
+inline = 'command -v starship >/dev/null 2>&1 && eval "$(starship init {{ .shell }})"'
 
 [plugins.mise]
-inline = 'eval "$(mise activate {{ .shell }})"'
+inline = 'command -v mise >/dev/null 2>&1 && eval "$(mise activate {{ .shell }})"'
 
 [plugins.zoxide]
-inline = 'eval "$(zoxide init {{ .shell }})"'
+inline = 'command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init {{ .shell }})"'

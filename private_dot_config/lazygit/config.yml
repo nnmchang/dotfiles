@@ -4,9 +4,8 @@ os:
   editAtLineAndWait: "nvim +{{line}} {{filename}}"
 promptToReturnFromSubprocess: false
 git:
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never
+  diffRenderers:
+    - command: delta --dark --paging=never
 gui:
   # https://github.com/catppuccin/lazygit/tree/main
   # Use the mocha catppuccin themetheme

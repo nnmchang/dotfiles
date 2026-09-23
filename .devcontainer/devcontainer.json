@@ -1,6 +1,6 @@
 {
     "name": "chezmoi-dotfiles",
-    "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
     "workspaceFolder": "/home/vscode/.local/share/chezmoi",
     "workspaceMount": "source=${localWorkspaceFolder},target=/home/vscode/.local/share/chezmoi,type=bind,consistency=cached",
     "features": {

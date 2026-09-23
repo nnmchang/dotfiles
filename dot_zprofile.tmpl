@@ -5,8 +5,9 @@ if [ -d "$HOME/Library/Application Support/JetBrains/Toolbox/scripts" ]; then
     export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 fi
 
-# Python 3.13 (python.org installer)
-if [ -d "/Library/Frameworks/Python.framework/Versions/3.13/bin" ]; then
-    export PATH="/Library/Frameworks/Python.framework/Versions/3.13/bin:$PATH"
+# Python (python.org installer)
+# mise で管理する Python と競合しないよう PATH の末尾に追加する
+if [ -d "/Library/Frameworks/Python.framework/Versions/Current/bin" ]; then
+    export PATH="$PATH:/Library/Frameworks/Python.framework/Versions/Current/bin"
 fi
 {{ end }}

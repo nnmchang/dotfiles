@@ -12,7 +12,6 @@ packages:
     - sheldon
     - vivid
     - lsd
-    - rust-analyzer
     - yazi
     - zoxide
     - git-delta
@@ -55,9 +54,3 @@ packages:
     - uutils-findutils
     - jq
     - yq
-mise:
-  - tool: python
-    version: "3.12.3"
-    use: "global"
-  - tool: python
-    version: "3.13-dev"

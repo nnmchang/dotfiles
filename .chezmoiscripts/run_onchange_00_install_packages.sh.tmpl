@@ -11,5 +11,8 @@ if ! command -v brew >/dev/null 2>&1; then
     done
 fi
 
-brew update
-brew install {{ .packages.brew | quoteList | join " " }}
+brew bundle --file=/dev/stdin <<BREWFILE
+{{ range .packages.brew -}}
+brew {{ . | quote }}
+{{ end -}}
+BREWFILE

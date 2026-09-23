@@ -8,7 +8,7 @@ type = "git-repo"
 url = "https://github.com/nnmchang/nvim.git"
 refreshPeriod = "168h"
 
-["./delta"]
-type = "git-repo"
-url = "https://github.com/catppuccin/delta.git"
+["./delta/catppuccin.gitconfig"]
+type = "file"
+url = "https://raw.githubusercontent.com/catppuccin/delta/main/catppuccin.gitconfig"
 refreshPeriod = "168h"

@@ -1,18 +1,12 @@
 if (Get-Command starship -ErrorAction SilentlyContinue) {
     Invoke-Expression (&starship init powershell)
 }
-Invoke-Expression (& { (zoxide init powershell | Out-String) })
-
-function Invoke-As-Admin() {
-    if ($args.count -eq 0) {
-        gsudo
-        return
-    }
-    $cmd = $args -join ' '
-    gsudo "pwsh.exe -Login -Command { $cmd }"
+if (Get-Command zoxide -ErrorAction SilentlyContinue) {
+    Invoke-Expression (& { (zoxide init powershell | Out-String) })
 }
 
-Set-Alias -Name: "sudo" -Value: "Invoke-As-Admin"
+# gsudo は引数なしで管理者シェル、引数ありでそのコマンドを現在のシェルで昇格実行する
+Set-Alias -Name: "sudo" -Value: "gsudo"
 Set-Alias -Name: "ls" -Value: "lsd"
 function ll {
     ls -l $args
@@ -47,7 +41,20 @@ function which {
         Select-Object -First 1 -ExpandProperty Source
 }
 
-$env:YAZI_FILE_ONE=$(join-path $(where.exe git | Select-Object -First 1) ../../usr/bin/file.exe)
+# yazi が使う file.exe を Git for Windows (公式インストーラ版 / scoop 版) から探す
+if (-not $env:YAZI_FILE_ONE) {
+    $git = Get-Command git -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
+    if ($git) {
+        $candidates = @(
+            (Join-Path $git.Source "..\..\usr\bin\file.exe"),
+            (Join-Path ($env:SCOOP ?? "$HOME\scoop") "apps\git\current\usr\bin\file.exe")
+        )
+        $file = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
+        if ($file) {
+            $env:YAZI_FILE_ONE = (Resolve-Path $file).Path
+        }
+    }
+}
 function yy {
     $tmp = [System.IO.Path]::GetTempFileName()
     yazi $args --cwd-file="$tmp"

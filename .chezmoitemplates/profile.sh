@@ -9,12 +9,11 @@ if [ -e "/opt/homebrew/bin/brew" ]; then
 fi
 {{ end }}
 
-# set PATH so it includes user's private bin if it exists
+# set PATH so it includes user's private bin directories if they exist
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-# set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
@@ -24,9 +23,11 @@ if [ -e "$HOME/.cargo/env" ]; then
 fi
 
 # Expand $PATH to include the directory where snappy applications go.
-snap_bin_path="/snap/bin"
-if [ -n "${PATH##*${snap_bin_path}}" -a -n "${PATH##*${snap_bin_path}:*}" ]; then
-    export PATH=$PATH:${snap_bin_path}
+if [ -d "/snap/bin" ]; then
+    case ":$PATH:" in
+        *":/snap/bin:"*) ;;
+        *) export PATH="$PATH:/snap/bin" ;;
+    esac
 fi
 
 if command -v vivid >/dev/null 2>&1; then

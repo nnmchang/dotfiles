@@ -3,7 +3,16 @@ on:
   push:
     branches: main
   pull_request:
+permissions:
+  contents: read
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Git repository
+      uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+    - name: ShellCheck
+      run: shellcheck .chezmoiscripts/*.sh
   unix:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -13,27 +22,27 @@ jobs:
           - macos-latest
     steps:
     - name: Set up Git repository
-      uses: actions/checkout@v5
+      uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
     - name: Set up homebrew
-      uses: 'Homebrew/actions/setup-homebrew@main'
+      uses: Homebrew/actions/setup-homebrew@848c272c7bfe984a197bd4d16383f4c106ec61e6 # main
     - name: Install Chezmoi
       run: 'brew install chezmoi'
     - name: Test Chezmoi
       run: 'chezmoi init --apply --source $GITHUB_WORKSPACE'
+    - name: Verify Chezmoi
+      run: 'chezmoi verify --exclude scripts'
   windows:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os:
-          - windows-latest
+    runs-on: windows-latest
     steps:
     - name: Set up Git repository
-      uses: actions/checkout@v5
+      uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
     - name: PowerShell Policy
       run: 'Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force'
     - name: Install Scoop
-      uses: MinoruSekine/setup-scoop@v4
+      uses: MinoruSekine/setup-scoop@6435f41324fa55988d8ce5b06bae5cafc75fe045 # v4
     - name: Install Chezmoi
       run: 'scoop install chezmoi'
     - name: Test Chezmoi Windows
       run: 'chezmoi init --apply --source $Env:GITHUB_WORKSPACE'
+    - name: Verify Chezmoi Windows
+      run: 'chezmoi verify --exclude scripts'

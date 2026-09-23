@@ -6,34 +6,19 @@ cd:
   command: "pwsh.exe"
 {{ end }}
 
-{{/* os detect */}}
-{{ $os := "" }}
-{{ if eq .chezmoi.os "windows" }}
-  {{ $os = "windows"}}
-{{ end }}
-{{ if eq .chezmoi.os "linux" }}
-  {{ $os = .chezmoi.osRelease.id }}
-{{ end }}
-{{ if eq .chezmoi.os "darwin" }}
-  {{ $os = "darwin" }}
-{{ end }}
-
 {{/* shell detect */}}
 {{ $shell := "bash" }}
-{{ if eq .chezmoi.os "windows"}}
-  {{ $shell = "shell" }}
+{{ if eq .chezmoi.os "windows" }}
+  {{ $shell = "pwsh" }}
 {{ else }}
-  {{ if or (eq .chezmoi.os "linux") (eq .chezmoi.os "darwin") }}
-    {{ $detect_shell := env "SHELL" | base }}
-    {{ if ne $detect_shell "" }}
-      {{ $shell = $detect_shell }}
-    {{ else }}
-      {{ $shells := list "bash" "zsh" }}
-      {{ $shell = promptChoiceOnce . "shell" "What type of shell are you on" $shells "bash"}}
-    {{ end }}
+  {{ $detect_shell := env "SHELL" | base }}
+  {{ if and (ne $detect_shell "") (ne $detect_shell ".") }}
+    {{ $shell = $detect_shell }}
+  {{ else }}
+    {{ $shells := list "bash" "zsh" }}
+    {{ $shell = promptChoiceOnce . "shell" "What type of shell are you on" $shells "bash" }}
   {{ end }}
 {{ end }}
 
 data:
   shell: {{ $shell }}
-  os: {{ $os }}

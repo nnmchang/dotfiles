@@ -12,7 +12,7 @@ jobs:
     - name: Set up Git repository
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
     - name: ShellCheck
-      run: shellcheck .chezmoiscripts/*.sh
+      run: shellcheck .chezmoiscripts/*.sh .github/scripts/*.sh
     - name: PSScriptAnalyzer
       shell: pwsh
       run: |
@@ -62,12 +62,22 @@ jobs:
         chezmoi verify --exclude scripts --source $GITHUB_WORKSPACE
     - name: Load shell config
       run: |
-        # ログイン + 対話シェルとして rc を読み込み、エラー出力がないことを確認する
-        "$SHELL" -lic 'true' 2> err.txt || true
+        # ログイン + 対話シェルとして rc を読み込み、失敗やエラー出力がないことを確認する
+        status=0
+        "$SHELL" -lic 'true' 2> err.txt || status=$?
         cat err.txt
-        if grep -iE 'command not found|not found|parse error|syntax error|no such file|error' err.txt; then
+        if [ "$status" -ne 0 ]; then
+          echo "シェルの起動に失敗しました (exit $status)"
           exit 1
         fi
+        # 対話シェルの起動時に出る無害なメッセージ (bash の job control など) は対象外にする。starship の警告は色付きのため単語で拾う
+        if grep -iE 'not found|parse error|syntax error|no such file|error:|warn' err.txt; then
+          exit 1
+        fi
+    - name: Check commands
+      run: '"$SHELL" -lic "bash .github/scripts/check-commands.sh"'
+    - name: Smoke test
+      run: '"$SHELL" -lic "source .github/scripts/smoke-test.sh"'
   windows:
     runs-on: windows-latest
     steps:
@@ -96,5 +106,21 @@ jobs:
           $ErrorActionPreference = 'Continue'
           . $PROFILE
           if ($Error.Count -gt 0) { $Error | Out-String | Write-Output; exit 1 }
+        }
+        if ($LASTEXITCODE -ne 0) { exit 1 }
+    - name: Check commands
+      shell: pwsh
+      run: |
+        $env:Path = [Environment]::GetEnvironmentVariable('Path', 'User') + ';' + [Environment]::GetEnvironmentVariable('Path', 'Machine')
+        pwsh -NoLogo -NoProfile -File .github/scripts/check-commands.ps1
+        if ($LASTEXITCODE -ne 0) { exit 1 }
+    - name: Smoke test
+      shell: pwsh
+      run: |
+        $env:Path = [Environment]::GetEnvironmentVariable('Path', 'User') + ';' + [Environment]::GetEnvironmentVariable('Path', 'Machine')
+        # エイリアスや関数を使うため、プロファイルと同じスコープで読み込む
+        pwsh -NoLogo -NoProfile -Command {
+          . $PROFILE
+          . ./.github/scripts/smoke-test.ps1
         }
         if ($LASTEXITCODE -ne 0) { exit 1 }

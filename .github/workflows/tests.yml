@@ -89,8 +89,9 @@ jobs:
     - name: Load PowerShell profile
       shell: pwsh
       run: |
+        # 新しいシェルと同様にレジストリの PATH を反映する (scoop の env_add_path 対応)
+        $env:Path = [Environment]::GetEnvironmentVariable('Path', 'User') + ';' + [Environment]::GetEnvironmentVariable('Path', 'Machine')
         # プロファイルを明示的に読み込み、エラーが発生しないことを確認する
-        $Error.Clear()
         pwsh -NoLogo -NoProfile -Command {
           $ErrorActionPreference = 'Continue'
           . $PROFILE

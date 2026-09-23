@@ -1,4 +1,4 @@
 # package.toml hash: {{ include "private_dot_config/yazi/package.toml" | sha256sum }}
-if (Get-Command ya -ErrorAction SilentlyContinue) {
+if (Get-Command ya -ErrorAction Ignore) {
     ya pkg install
 }

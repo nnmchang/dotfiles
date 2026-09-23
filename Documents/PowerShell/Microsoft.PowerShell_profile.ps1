@@ -1,7 +1,7 @@
-if (Get-Command starship -ErrorAction SilentlyContinue) {
+if (Get-Command starship -ErrorAction Ignore) {
     Invoke-Expression (&starship init powershell)
 }
-if (Get-Command zoxide -ErrorAction SilentlyContinue) {
+if (Get-Command zoxide -ErrorAction Ignore) {
     Invoke-Expression (& { (zoxide init powershell | Out-String) })
 }
 
@@ -37,13 +37,13 @@ function dcd {
 }
 
 function which {
-    Get-Command $args -CommandType Application -ErrorAction SilentlyContinue |
+    Get-Command $args -CommandType Application -ErrorAction Ignore |
         Select-Object -First 1 -ExpandProperty Source
 }
 
 # yazi が使う file.exe を Git for Windows (公式インストーラ版 / scoop 版) から探す
 if (-not $env:YAZI_FILE_ONE) {
-    $git = Get-Command git -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
+    $git = Get-Command git -CommandType Application -ErrorAction Ignore | Select-Object -First 1
     if ($git) {
         $candidates = @(
             (Join-Path $git.Source "..\..\usr\bin\file.exe"),

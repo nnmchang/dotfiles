@@ -24,6 +24,12 @@ github = 'romkatv/zsh-defer'
 [templates]
 defer = {{ `"{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"` }}
 
+# 履歴設定 (HISTFILE/SAVEHIST) は起動時の履歴読み込みに間に合わせるため defer しない
+[plugins.ohmyzsh-history]
+github = "ohmyzsh/ohmyzsh"
+dir = "lib"
+use = ["history.zsh"]
+
 [plugins.ohmyzsh-lib]
 github = "ohmyzsh/ohmyzsh"
 dir = "lib"

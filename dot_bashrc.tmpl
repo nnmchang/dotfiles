@@ -1,2 +1,8 @@
+# 非対話シェルでは何もしない
+case $- in
+    *i*) ;;
+    *) return ;;
+esac
+
 eval "$(sheldon source)"
 {{ template "alias.sh" . }}

@@ -1,7 +1,15 @@
 #!/bin/bash
 set -euo pipefail
 
-{{ if or (eq .chezmoi.os "linux") (eq .chezmoi.os "darwin") }}
-  brew update
-  brew install {{ .packages.brew | quoteList | join " " }}
-{{ end -}}
+# chezmoi 実行時はシェルの profile が未読込の場合があるため brew を PATH に通す
+if ! command -v brew >/dev/null 2>&1; then
+    for brew in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
+        if [ -x "$brew" ]; then
+            eval "$("$brew" shellenv)"
+            break
+        fi
+    done
+fi
+
+brew update
+brew install {{ .packages.brew | quoteList | join " " }}

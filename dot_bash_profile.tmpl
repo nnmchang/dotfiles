@@ -1,1 +1,6 @@
 {{ template "profile.sh" .}}
+
+# ログインシェルでも .bashrc (sheldon・エイリアス) を読み込む
+if [ -f "$HOME/.bashrc" ]; then
+    . "$HOME/.bashrc"
+fi

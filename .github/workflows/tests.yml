@@ -76,7 +76,7 @@ jobs:
     - name: PowerShell Policy
       run: 'Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force'
     - name: Install Scoop
-      uses: MinoruSekine/setup-scoop@6435f41324fa55988d8ce5b06bae5cafc75fe045 # v4
+      uses: MinoruSekine/setup-scoop@f1cc59be496ed3a1801a5f64efe5c60ba3d6bb75 # v5.0.1
     - name: Install Chezmoi
       run: 'scoop install chezmoi'
     - name: Test Chezmoi Windows

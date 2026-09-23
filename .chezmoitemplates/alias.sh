@@ -1,7 +1,7 @@
 alias ls='lsd'
 alias ll='ls -alF'
 alias la='ls -A'
-alias l='ls -CF'
+alias l='ls -F'
 alias lt='lsd --tree'
 alias cat='bat --paging=never'
 alias du='dust'

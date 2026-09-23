@@ -1,0 +1,2 @@
+# Windows でも改行を LF に統一する (ya pkg などが LF で書き戻すため)
+* text=auto eol=lf

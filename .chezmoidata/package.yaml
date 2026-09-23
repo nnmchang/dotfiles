@@ -25,6 +25,7 @@ packages:
     - jq
     - yq
   scoop:
+    - git
     - 7zip
     - fd
     - fzf

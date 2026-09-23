@@ -1,83 +1,28 @@
+# デフォルト設定との差分のみを記述する
+# https://github.com/sxyazi/yazi/blob/main/yazi-config/preset/yazi-default.toml
+# プレースホルダ: %s = 選択中の全ファイル, %s1 = 先頭のファイル, %d1 = 先頭のファイルの親ディレクトリ
+# (yazi が OS に応じてクォートするため、自分で囲まない)
+
 [opener]
 edit = [
-	{ run = 'nvim "$0"', block = true, desc = "nvim", for = "unix" },
-	{ run = 'nvim "%0"', block = true, desc = "nvim", for = "windows" },
+	{ run = "nvim %s", block = true, desc = "nvim" },
 ]
 edit_dir = [
-	{ run = 'cd "$0" && nvim .', block = true, desc = "open directory with nvim", for = "unix" },
-	{ run = 'cd "%0" && nvim .', block = true, desc = "open directory with nvim", for = "windows" },
+	{ run = "cd %s1 && nvim .", block = true, desc = "open directory with nvim", for = "unix" },
+	{ run = "cd /d %s1 && nvim .", block = true, desc = "open directory with nvim", for = "windows" },
 ]
 edit_current_dir = [
-	{ run = 'nvim .', block = true, desc = "open current directory with nvim" },
-]
-open = [
-	{ run = 'xdg-open "$@"', desc = "Open", for = "linux" },
-	{ run = 'open "$@"', desc = "Open", for = "macos" },
-	{ run = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" },
-]
-reveal = [
-	{ run = 'xdg-open "$(dirname "$0")"', desc = "Reveal", for = "linux" },
-	{ run = 'open -R "$1"', desc = "Reveal", for = "macos" },
-	{ run = 'explorer /select, "%1"', orphan = true, desc = "explorer", for = "windows" },
-	{ run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
-]
-extract = [
-	{ run = 'unar "$1"', desc = "Extract here", for = "unix" },
-	{ run = 'unar "%1"', desc = "Extract here", for = "windows" },
+	{ run = "nvim .", block = true, desc = "open current directory with nvim" },
 ]
 play = [
-	{ run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
-	{ run = 'mpv --force-window "%1"', orphan = true, for = "windows" },
-	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
+	{ run = "mpv --force-window %s", orphan = true, desc = "mpv" },
+	{ run = "mediainfo %s1; echo 'Press enter to exit'; read _", block = true, desc = "Show media info", for = "unix" },
+	{ run = "mediainfo %s1 & pause", block = true, desc = "Show media info", for = "windows" },
 ]
 
 [open]
-rules = [
-	{ name = "*/", use = [
-		"edit_dir",
-		"edit_current_dir",
-		"open",
-		"reveal",
-	] },
-
-	{ mime = "text/*", use = [
-		"edit",
-		"edit_current_dir",
-		"reveal",
-	] },
-	{ mime = "image/*", use = [
-		"open",
-		"reveal",
-	] },
-	{ mime = "{audio,video}/*", use = [
-		"play",
-		"reveal",
-	] },
-	{ mime = "inode/x-empty", use = [
-		"edit",
-		"reveal",
-	] },
-
-	{ mime = "application/{,g}zip", use = [
-		"extract",
-		"reveal",
-	] },
-	{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", use = [
-		"extract",
-		"reveal",
-	] },
-
-	{ mime = "application/json", use = [
-		"edit",
-		"reveal",
-	] },
-	{ mime = "*/javascript", use = [
-		"edit",
-		"reveal",
-	] },
-
-	{ name = "*", use = [
-		"open",
-		"reveal",
-	] },
+# デフォルトのルールより優先して適用する
+prepend_rules = [
+	{ url = "*/", use = [ "edit_dir", "edit_current_dir", "open", "reveal" ] },
+	{ mime = "text/*", use = [ "edit", "edit_current_dir", "reveal" ] },
 ]

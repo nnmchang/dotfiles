@@ -1,2 +1,6 @@
+# scoop の bucket 追加には git が必要なため先に導入する
+if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+    scoop install git
+}
 scoop bucket add extras
 scoop install {{ .packages.scoop | quoteList | join " " }} {{ $action := env "GITHUB_ACTIONS"}}{{ if ne $action "" }}--skip-hash-check{{ end }}

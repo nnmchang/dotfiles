@@ -15,7 +15,7 @@ jobs:
     - name: Set up Git repository
       uses: actions/checkout@v4
     - name: Set up homebrew
-      uses: 'Homebrew/actions/setup-homebrew@master'
+      uses: 'Homebrew/actions/setup-homebrew@main'
     - name: Install Chezmoi
       run: 'brew install chezmoi'
     - name: Test Chezmoi

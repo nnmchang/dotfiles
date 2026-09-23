@@ -13,7 +13,7 @@ jobs:
           - macos-latest
     steps:
     - name: Set up Git repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
     - name: Set up homebrew
       uses: 'Homebrew/actions/setup-homebrew@main'
     - name: Install Chezmoi
@@ -28,7 +28,7 @@ jobs:
           - windows-latest
     steps:
     - name: Set up Git repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
     - name: PowerShell Policy
       run: 'Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force'
     - name: Install Scoop

@@ -13,6 +13,22 @@ jobs:
       uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
     - name: ShellCheck
       run: shellcheck .chezmoiscripts/*.sh
+    - name: PSScriptAnalyzer
+      shell: pwsh
+      run: |
+        if (-not (Get-Module -ListAvailable PSScriptAnalyzer)) {
+          Install-Module PSScriptAnalyzer -Scope CurrentUser -Force
+        }
+        # Unix の pwsh はドット始まりを隠し扱いするため -Force で .chezmoiscripts も対象にする
+        $files = Get-ChildItem -Recurse -Force -File -Filter '*.ps1' | Where-Object { $_.FullName -notmatch '[\\/]\.git[\\/]' }
+        $files.FullName | Write-Output
+        $results = $files | ForEach-Object {
+          # PSAvoidUsingInvokeExpression: starship/zoxide の init 読み込みは Invoke-Expression が定石
+          # PSUseBOMForUnicodeEncodedFile: .gitattributes で LF/UTF-8 (BOM なし) に統一しているため
+          Invoke-ScriptAnalyzer -Path $_.FullName -Severity Error, Warning -ExcludeRule PSAvoidUsingInvokeExpression, PSUseBOMForUnicodeEncodedFile
+        }
+        $results | Format-Table -AutoSize | Out-String | Write-Output
+        if ($results) { exit 1 }
   unix:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -21,9 +37,18 @@ jobs:
         os:
           - ubuntu-latest
           - macos-latest
+        shell:
+          - bash
+          - zsh
+    env:
+      # .chezmoi.yaml.tmpl は $SHELL からシェルを判定する
+      SHELL: /bin/${{ matrix.shell }}
     steps:
     - name: Set up Git repository
       uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+    - name: Install zsh
+      if: matrix.shell == 'zsh' && runner.os == 'Linux'
+      run: sudo apt-get update && sudo apt-get install -y zsh
     - name: Set up homebrew
       uses: Homebrew/actions/setup-homebrew@848c272c7bfe984a197bd4d16383f4c106ec61e6 # main
     - name: Install Chezmoi
@@ -35,6 +60,14 @@ jobs:
         chezmoi status --exclude scripts --source $GITHUB_WORKSPACE
         chezmoi diff --no-pager --exclude scripts --source $GITHUB_WORKSPACE
         chezmoi verify --exclude scripts --source $GITHUB_WORKSPACE
+    - name: Load shell config
+      run: |
+        # ログイン + 対話シェルとして rc を読み込み、エラー出力がないことを確認する
+        "$SHELL" -lic 'true' 2> err.txt || true
+        cat err.txt
+        if grep -iE 'command not found|not found|parse error|syntax error|no such file|error' err.txt; then
+          exit 1
+        fi
   windows:
     runs-on: windows-latest
     steps:
@@ -53,3 +86,14 @@ jobs:
         chezmoi status --exclude scripts --source $Env:GITHUB_WORKSPACE
         chezmoi diff --no-pager --exclude scripts --source $Env:GITHUB_WORKSPACE
         chezmoi verify --exclude scripts --source $Env:GITHUB_WORKSPACE
+    - name: Load PowerShell profile
+      shell: pwsh
+      run: |
+        # プロファイルを明示的に読み込み、エラーが発生しないことを確認する
+        $Error.Clear()
+        pwsh -NoLogo -NoProfile -Command {
+          $ErrorActionPreference = 'Continue'
+          . $PROFILE
+          if ($Error.Count -gt 0) { $Error | Out-String | Write-Output; exit 1 }
+        }
+        if ($LASTEXITCODE -ne 0) { exit 1 }

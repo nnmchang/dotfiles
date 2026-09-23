@@ -9,7 +9,7 @@ if (Get-Command zoxide -ErrorAction SilentlyContinue) {
 Set-Alias -Name: "sudo" -Value: "gsudo"
 Set-Alias -Name: "ls" -Value: "lsd"
 function ll {
-    ls -l $args
+    lsd -l $args
 }
 function lt {
     lsd --tree $args

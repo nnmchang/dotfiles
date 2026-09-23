@@ -7,4 +7,9 @@ if ! command -v rustup >/dev/null 2>&1; then
     . "$HOME/.cargo/env"
 fi
 
+# rustup のみ導入済みでツールチェーンが無い場合 (brew の rustup など) に備える
+if ! rustup default >/dev/null 2>&1; then
+    rustup default stable
+fi
+
 rustup component add rust-analyzer

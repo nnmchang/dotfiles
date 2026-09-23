@@ -11,6 +11,11 @@ if ! command -v brew >/dev/null 2>&1; then
     done
 fi
 
+if ! command -v brew >/dev/null 2>&1; then
+    echo "warning: brew が見つからないためパッケージのインストールをスキップします" >&2
+    exit 0
+fi
+
 brew bundle --file=/dev/stdin <<BREWFILE
 {{ range .packages.brew -}}
 brew {{ . | quote }}

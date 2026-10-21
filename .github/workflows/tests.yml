@@ -50,7 +50,7 @@ jobs:
       if: matrix.shell == 'zsh' && runner.os == 'Linux'
       run: sudo apt-get update && sudo apt-get install -y zsh
     - name: Set up homebrew
-      uses: Homebrew/actions/setup-homebrew@848c272c7bfe984a197bd4d16383f4c106ec61e6 # main
+      uses: Homebrew/actions/setup-homebrew@4790763c0a3ba4036f72634dc079c4a7dfcd4878 # main
     - name: Install Chezmoi
       run: 'brew install chezmoi'
     - name: Test Chezmoi
